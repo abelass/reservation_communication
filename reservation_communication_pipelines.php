@@ -66,3 +66,18 @@ function reservation_communication_affiche_auteurs_interventions($flux) {
   return $flux;
 }
 
+/**
+ * Ajoute un action dans le compteur rérvations ans l'espace admin (navigation)
+ *
+ * @pipeline reservation_compteur_action
+ * @param  array $flux Données du pipeline
+ * @return array       Données du pipeline
+ */
+function reservation_communication_reservation_compteur_action($flux) {
+
+
+  $flux['data']=recuperer_fond('inclure/reservation_compteur_action', $flux);
+
+  return $flux;
+}
+

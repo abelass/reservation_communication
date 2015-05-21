@@ -1,20 +1,23 @@
 <?php
 // This is a SPIP language file  --  Ceci est un fichier langue de SPIP
 
-if (!defined('_ECRIRE_INC_VERSION')) return;
- 
+if (!defined('_ECRIRE_INC_VERSION'))
+  return;
+
 $GLOBALS[$GLOBALS['idx_lang']] = array(
 
-	// R
-	'reservation_communication_titre' => 'Réservation Comunications',
+  //E
+  'envoyer_mail' => 'Envoyer un mail aux participants',
 
-	// C
-	'cfg_exemple' => 'Exemple',
-	'cfg_exemple_explication' => 'Explication de cet exemple',
-	'cfg_titre_parametrages' => 'Paramétrages',
+  // R
+  'reservation_communication_titre' => 'Réservation Comunications',
 
-	// T
-	'titre_page_configurer_reservation_communication' => 'Réservation Comunications',
+  // C
+  'cfg_exemple' => 'Exemple',
+  'cfg_exemple_explication' => 'Explication de cet exemple',
+  'cfg_titre_parametrages' => 'Paramétrages',
+
+  // T
+  'titre_page_configurer_reservation_communication' => 'Réservation Comunications',
 );
-
 ?>
