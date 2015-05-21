@@ -23,7 +23,7 @@ if (!defined('_ECRIRE_INC_VERSION'))
  */
 function reservation_communication_declarer_tables_interfaces($interfaces) {
 
-  $interfaces['table_des_tables']['communications'] = 'communications';
+  $interfaces['table_des_tables']['reservation_communications'] = 'reservation_communications';
 
   return $interfaces;
 }
@@ -39,39 +39,52 @@ function reservation_communication_declarer_tables_interfaces($interfaces) {
  */
 function reservation_communication_declarer_tables_objets_sql($tables) {
 
-  $tables['spip_communications'] = array(
-    'type' => 'communication',
+  $tables['spip_reservation_communications'] = array(
+    'type' => 'reservation_communication',
     'principale' => "oui",
+    'table_objet_surnoms' => array('reservationcommunication'), // table_objet('reservation_communication') => 'reservation_communications'
     'field' => array(
-      "id_communication" => "bigint(21) NOT NULL",
+      "id_reservation_communication" => "bigint(21) NOT NULL",
       "id_rubrique" => "bigint(21) NOT NULL DEFAULT 0",
-      "id_evenement" => "bigint(21) NOT NULL DEFAULT 0",
       "id_article" => "bigint(21) NOT NULL DEFAULT 0",
+      "id_evenement" => "bigint(21) NOT NULL DEFAULT 0",
       "titre" => "text NOT NULL",
       "texte" => "longtext NOT NULL",
-      "total" => "bigint(21) NOT NULL",
-      "current" => "bigint(21) NOT NULL",
-      "failed" => "bigint(21) NOT NULL",
       "date_redac" => "datetime NOT NULL DEFAULT '0000-00-00 00:00:00'",
       "type" => "varchar(25) NOT NULL DEFAULT ''",
       "html_email" => "longtext NOT NULL",
       "texte_email" => "longtext NOT NULL",
       "recurrence" => "text NOT NULL",
       "email_test" => "text NOT NULL",
+      "total" => "bigint(21) NOT NULL DEFAULT 0",
+      "current" => "bigint(21) NOT NULL DEFAULT 0",
+      "failed" => "bigint(21) NOT NULL DEFAULT 0",
       "date_envoi" => "datetime NOT NULL DEFAULT '0000-00-00 00:00:00'",
       "statut" => "varchar(20)  DEFAULT '0' NOT NULL",
       "maj" => "TIMESTAMP"
     ),
     'key' => array(
-      "PRIMARY KEY" => "id_communication",
+      "PRIMARY KEY" => "id_reservation_communication",
       "KEY id_rubrique" => "id_rubrique",
       "KEY id_evenement" => "id_evenement",
-      "KEY id_article" => "id_article",
+      "KEY id_article" => "id_evenement",
       "KEY statut" => "statut",
     ),
     'titre' => "titre AS titre, '' AS lang",
     'date' => "date_envoi",
-    'champs_editables' => array(),
+    'champs_editables' => array(
+      'titre',
+      'texte',
+      'date_redac',
+      'type',
+      'html_email',
+      'texte_email',
+      'recurrence',
+      'email_test',
+      'total',
+      'current',
+      'failed'
+    ),
     'champs_versionnes' => array(),
     'rechercher_champs' => array(),
     'tables_jointures' => array(),
@@ -92,12 +105,11 @@ function reservation_communication_declarer_tables_objets_sql($tables) {
           'tout'
         )
       )),
-    'texte_changer_statut' => 'communication:texte_changer_statut_communication',
+    'texte_changer_statut' => 'reservation_communication:texte_changer_statut_reservation_communication',
   );
 
   return $tables;
 }
-
 
 /**
  * Déclaration des tables secondaires (liaisons)
@@ -110,9 +122,9 @@ function reservation_communication_declarer_tables_objets_sql($tables) {
  */
 function reservation_communication_declarer_tables_auxiliaires($tables) {
 
-  $tables['spip_communication_destinataires'] = array(
+  $tables['spip_reservation_communication_destinataires'] = array(
     'field' => array(
-      "id_communication" => "bigint(21) DEFAULT '0' NOT NULL",
+      "id_reservation_communication" => "bigint(21) DEFAULT '0' NOT NULL",
       "email" => "varchar(255) NOT NULL DEFAULT ''",
       "id_auteur" => "varchar(255) NOT NULL DEFAULT ''",
       "date" => "datetime NOT NULL DEFAULT '0000-00-00 00:00:00'",
@@ -120,7 +132,7 @@ function reservation_communication_declarer_tables_auxiliaires($tables) {
       "try" => "tinyint NOT NULL DEFAULT 0", // nombre d'essais
     ),
     'key' => array(
-      "PRIMARY KEY" => "id_communication,email",
+      "PRIMARY KEY" => "id_reservation_communication,email",
       "KEY email" => "email",
       "KEY id_auteur" => "id_auteur",
       "KEY statut" => "statut"

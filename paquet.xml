@@ -28,5 +28,5 @@ schema="1.0.0"
 
   <pipeline nom="reservation_compteur_action" inclure="reservation_communication_pipelines.php" />
 
-  <menu nom="communications" titre="communication:titre_communications" parent="menu_activite" icone="images/communication-16.png" action="communications" />
+  <menu nom="reservation_communications" titre="reservation_communication:titre_reservation_communications" parent="menu_activite" icone="images/reservation_communication-16.png" action="reservation_communications" />
 </paquet>

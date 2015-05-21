@@ -1,0 +1,46 @@
+[(#AUTORISER{voir,reservation_communication,#ID_RESERVATION_COMMUNICATION}|sinon_interdire_acces)]
+<BOUCLE_reservation_communication(RESERVATION_COMMUNICATIONS){id_reservation_communication}{statut==.*}{si #ENV{exec}|=={reservation_communication}}>
+[(#BOITE_OUVRIR{[
+	[(#AUTORISER{modifier,reservation_communication,#ID_RESERVATION_COMMUNICATION})
+		[(#ID_RESERVATION_COMMUNICATION|afficher_qui_edite{reservation_communication}|non)
+			[(#URL_ECRIRE{reservation_communication_edit,id_reservation_communication=#ID_RESERVATION_COMMUNICATION}|icone_verticale{<:reservation_communication:icone_modifier_reservation_communication:>,reservation_communication,edit,right ajax preload})]
+		]
+		[(#ID_RESERVATION_COMMUNICATION|afficher_qui_edite{reservation_communication}|oui)
+			[(#URL_ECRIRE{reservation_communication_edit,id_reservation_communication=#ID_RESERVATION_COMMUNICATION}|icone_verticale{#ID_RESERVATION_COMMUNICATION|afficher_qui_edite{reservation_communication},warning-24,'',right edition_deja ajax preload})]
+		]
+	]
+
+	<h1>[(#RANG). ](#TITRE|sinon{<:info_sans_titre:>})[(#CHEMIN_IMAGE{reservation_communication-24.png}|balise_img{reservation_communication,cadre-icone})]</h1>
+
+],simple fiche_objet})]
+
+<div class="ajax">
+	#FORMULAIRE_DATER{reservation_communication,#ID_RESERVATION_COMMUNICATION}
+</div>
+
+<!--affiche_milieu-->
+
+<div id="wysiwyg">
+<INCLURE{fond=prive/objets/contenu/reservation_communication,id=#ID_RESERVATION_COMMUNICATION,id_reservation_communication=#ID_RESERVATION_COMMUNICATION,virtuel=oui,ajax=wysiwyg,wysiwyg=1}>
+</div>
+
+<div class="nettoyeur"></div>
+
+[(#AUTORISER{modifier,reservation_communication,#ID_RESERVATION_COMMUNICATION})
+	[(#ID_RESERVATION_COMMUNICATION|afficher_qui_edite{reservation_communication}|non)
+		[(#URL_ECRIRE{reservation_communication_edit,id_reservation_communication=#ID_RESERVATION_COMMUNICATION}|icone_verticale{<:reservation_communication:icone_modifier_reservation_communication:>,reservation_communication,edit,right ajax preload})]
+	]
+	[(#ID_RESERVATION_COMMUNICATION|afficher_qui_edite{reservation_communication}|oui)
+		[(#URL_ECRIRE{reservation_communication_edit,id_reservation_communication=#ID_RESERVATION_COMMUNICATION}|icone_verticale{#ID_RESERVATION_COMMUNICATION|afficher_qui_edite{reservation_communication},warning-24,'',right edition_deja ajax preload})]
+	]
+]
+
+#PIPELINE{afficher_complement_objet,#ARRAY{args,#ARRAY{type,reservation_communication,id,#ID_RESERVATION_COMMUNICATION},data,'<div class="nettoyeur"></div>'}}
+
+#BOITE_FERMER
+[(#EVAL{_AJAX}|oui)
+	<script type="text/javascript">/*<!\\[CDATA\\[*/reloadExecPage('#ENV{exec}','#navigation,#chemin,#extra');/*\\]\\]>*/</script>
+]
+</BOUCLE_reservation_communication>
+[(#ENV**{exec}|=={reservation_communication_edit}|?{#INCLURE{fond=prive/squelettes/contenu/reservation_communication_edit,redirect='',env,retourajax=oui},#REM|sinon_interdire_acces})]
+<//B_reservation_communication>

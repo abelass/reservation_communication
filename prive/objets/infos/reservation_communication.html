@@ -1,0 +1,28 @@
+<BOUCLE_reservation_communication(RESERVATION_COMMUNICATIONS){id_reservation_communication=#ENV{id}}{statut?}>
+<div class='infos'>
+[(#SET{texte_objet,<:reservation_communication:titre_reservation_communication:>})]
+<div class='numero'><:titre_cadre_numero_objet{objet=#GET{texte_objet}}:><p>#ID_RESERVATION_COMMUNICATION</p></div>
+
+[(#FORMULAIRE_INSTITUER_OBJET{reservation_communications,#ID_RESERVATION_COMMUNICATION})]
+
+[(#REM)
+
+	Bouton voir en ligne
+
+]
+<BOUCLE_publie(RESERVATION_COMMUNICATIONS){id_reservation_communication}>
+	[(#VAL{redirect}
+		|generer_url_action{type=reservation_communications&id=#ID_RESERVATION_COMMUNICATION}
+		|parametre_url{var_mode,calcul}
+		|icone_horizontale{<:icone_voir_en_ligne:>,racine})]
+</BOUCLE_publie>
+	[(#AUTORISER{previsualiser,reservation_communications,#ID_RESERVATION_COMMUNICATION,'',#ARRAY{statut,#STATUT}})
+		[(#VAL{redirect}
+			|generer_url_action{type=reservation_communications&id=#ID_RESERVATION_COMMUNICATION}
+			|parametre_url{var_mode,preview}
+			|icone_horizontale{<:previsualiser:>,preview})]
+	]
+<//B_publie>
+
+</div>
+</BOUCLE_reservation_communication>

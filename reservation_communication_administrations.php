@@ -52,8 +52,8 @@ function reservation_communication_upgrade($nom_meta_base_version, $version_cibl
   $maj['create'] = array( array(
       'maj_tables',
       array(
-        'spip_communications',
-        'spip_communication_destinataires'
+        'spip_reservation_communications',
+        'spip_reservation_communication_destinataires'
       )
     ));
 
@@ -79,20 +79,20 @@ function reservation_communication_vider_tables($nom_meta_base_version) {
   # sql_drop_table("spip_xx");
   # sql_drop_table("spip_xx_liens");
 
-  sql_drop_table("spip_communications");
-  sql_drop_table("spip_communication_destinataires");
+  sql_drop_table("spip_reservation_communications");
+  sql_drop_table("spip_reservation_communication_destinataires");
   # Nettoyer les versionnages et forums
   sql_delete("spip_versions", sql_in("objet", array(
-    'communication',
-    'spip_communication_destinataires'
+    'spip_reservation_communications',
+    'spip_reservation_communication_destinataires'
   )));
   sql_delete("spip_versions_fragments", sql_in("objet", array(
-    'communication',
-    'spip_communication_destinataires'
+    'spip_reservation_communications',
+    'spip_reservation_communication_destinataires'
   )));
   sql_delete("spip_forum", sql_in("objet", array(
-    'communication',
-    'spip_communication_destinataires'
+    'spip_reservation_communications',
+    'spip_reservation_communication_destinataires'
   )));
 
   effacer_meta($nom_meta_base_version);

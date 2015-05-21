@@ -32,12 +32,12 @@ function reservation_communication_affiche_enfants($flux) {
     $lister_objets = charger_fonction('lister_objets', 'inc');
 
     $bouton = '';
-    if (autoriser('creercommunicationdans', 'rubrique', $id_rubrique)) {
-      $bouton .= icone_verticale(_T("communication:icone_creer_communication"), generer_url_ecrire("communication_edit", "id_rubrique=$id_rubrique"), "communication-24.png", "new", "right") . "<br class='nettoyeur' />";
+    if (autoriser('creerreservation_communicationdans', 'rubrique', $id_rubrique)) {
+      $bouton .= icone_verticale(_T("reservation_communication:icone_creer_reservation_communication"), generer_url_ecrire("reservation_communication_edit", "id_rubrique=$id_rubrique"), "reservation_communication-24.png", "new", "right") . "<br class='nettoyeur' />";
     }
 
-    $flux['data'] .= $lister_objets('communications', array(
-      'titre' => _T('communication:titre_communications_rubrique'),
+    $flux['data'] .= $lister_objets('reservation_communications', array(
+      'titre' => _T('reservation_communication:titre_reservation_communications_rubrique'),
       'id_rubrique' => $id_rubrique,
       'par' => 'titre'
     ));
@@ -57,9 +57,9 @@ function reservation_communication_affiche_enfants($flux) {
 function reservation_communication_affiche_auteurs_interventions($flux) {
   if ($id_auteur = intval($flux['args']['id_auteur'])) {
 
-    $flux['data'] .= recuperer_fond('prive/objets/liste/communications', array(
+    $flux['data'] .= recuperer_fond('prive/objets/liste/reservation_communications', array(
       'id_auteur' => $id_auteur,
-      'titre' => _T('communication:info_communications_auteur')
+      'titre' => _T('reservation_communication:info_reservation_communications_auteur')
     ), array('ajax' => true));
 
   }
@@ -75,9 +75,7 @@ function reservation_communication_affiche_auteurs_interventions($flux) {
  */
 function reservation_communication_reservation_compteur_action($flux) {
 
-
-  $flux['data']=recuperer_fond('inclure/reservation_compteur_action', $flux);
+  $flux['data'] = recuperer_fond('inclure/reservation_compteur_action', $flux);
 
   return $flux;
 }
-

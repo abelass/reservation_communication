@@ -1,8 +1,0 @@
-#FORMULAIRE_RECHERCHE_ECRIRE{#SELF,ajax}
-<div class="nettoyeur"></div>
-
-<INCLURE{fond=prive/objets/liste/communications, par=titre, env, ajax, sinon=<:communication:info_aucun_communication:>}>
-
-[(#AUTORISER{creer,communication})
-	[(#URL_ECRIRE{communication_edit,new=oui}|icone_verticale{<:communication:icone_creer_communication:>,communication,new,right})]
-]

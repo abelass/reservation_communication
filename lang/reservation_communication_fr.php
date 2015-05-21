@@ -6,18 +6,47 @@ if (!defined('_ECRIRE_INC_VERSION'))
 
 $GLOBALS[$GLOBALS['idx_lang']] = array(
 
+  // A
+  'ajouter_lien_reservation_communication' => 'Ajouter cette communication',
+
+  // C
+  'champ_current_label' => 'Actuel',
+  'champ_date_redac_label' => 'Date redac',
+  'champ_email_test_label' => 'Email test',
+  'champ_failed_label' => 'Echèc',
+  'champ_html_email_label' => 'Html email',
+  'champ_id_article_label' => 'Id article',
+  'champ_id_evenement_label' => 'Id événement',
+  'champ_recurrence_label' => 'Recurrence',
+  'champ_texte_email_label' => 'Texte email',
+  'champ_texte_label' => 'Texte',
+  'champ_titre_label' => 'Titre',
+  'champ_total_label' => 'Total',
+  'champ_type_label' => 'Type',
+
   //E
   'envoyer_mail' => 'Envoyer un mail aux participants',
 
-  // R
-  'reservation_communication_titre' => 'Réservation Comunications',
+  // I
+  'icone_creer_reservation_communication' => 'Créer une communication',
+  'icone_modifier_reservation_communication' => 'Modifier cette communication',
+  'info_1_reservation_communication' => 'Une communication',
+  'info_aucun_reservation_communication' => 'Aucune communication',
+  'info_nb_reservation_communications' => '@nb@ communications',
+  'info_reservation_communications_auteur' => 'Les communications de cet auteur',
 
-  // C
-  'cfg_exemple' => 'Exemple',
-  'cfg_exemple_explication' => 'Explication de cet exemple',
-  'cfg_titre_parametrages' => 'Paramétrages',
+  // R
+  'retirer_lien_reservation_communication' => 'Retirer cette communication',
+  'retirer_tous_liens_reservation_communications' => 'Retirer toutes les communications',
 
   // T
-  'titre_page_configurer_reservation_communication' => 'Réservation Comunications',
+  'texte_ajouter_reservation_communication' => 'Ajouter une communication',
+  'texte_changer_statut_reservation_communication' => 'Cette communication est :',
+  'texte_creer_associer_reservation_communication' => 'Créer et associer une communication',
+  'texte_definir_comme_traduction_reservation_communication' => 'Cette communication est une traduction de la communication numéro :',
+  'titre_langue_reservation_communication' => 'Langue de cette communication',
+  'titre_logo_reservation_communication' => 'Logo de cette communication',
+  'titre_reservation_communication' => 'Communication',
+  'titre_reservation_communications' => 'Communications',
+  'titre_reservation_communications_rubrique' => 'Communications de la rubrique',
 );
-?>
