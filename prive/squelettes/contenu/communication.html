@@ -1,0 +1,46 @@
+[(#AUTORISER{voir,communication,#ID_COMMUNICATION}|sinon_interdire_acces)]
+<BOUCLE_communication(COMMUNICATIONS){id_communication}{statut==.*}{si #ENV{exec}|=={communication}}>
+[(#BOITE_OUVRIR{[
+	[(#AUTORISER{modifier,communication,#ID_COMMUNICATION})
+		[(#ID_COMMUNICATION|afficher_qui_edite{communication}|non)
+			[(#URL_ECRIRE{communication_edit,id_communication=#ID_COMMUNICATION}|icone_verticale{<:communication:icone_modifier_communication:>,communication,edit,right ajax preload})]
+		]
+		[(#ID_COMMUNICATION|afficher_qui_edite{communication}|oui)
+			[(#URL_ECRIRE{communication_edit,id_communication=#ID_COMMUNICATION}|icone_verticale{#ID_COMMUNICATION|afficher_qui_edite{communication},warning-24,'',right edition_deja ajax preload})]
+		]
+	]
+
+	<h1>[(#RANG). ](#TITRE|sinon{<:info_sans_titre:>})[(#CHEMIN_IMAGE{communication-24.png}|balise_img{communication,cadre-icone})]</h1>
+
+],simple fiche_objet})]
+
+<div class="ajax">
+	#FORMULAIRE_DATER{communication,#ID_COMMUNICATION}
+</div>
+
+<!--affiche_milieu-->
+
+<div id="wysiwyg">
+<INCLURE{fond=prive/objets/contenu/communication,id=#ID_COMMUNICATION,id_communication=#ID_COMMUNICATION,virtuel=oui,ajax=wysiwyg,wysiwyg=1}>
+</div>
+
+<div class="nettoyeur"></div>
+
+[(#AUTORISER{modifier,communication,#ID_COMMUNICATION})
+	[(#ID_COMMUNICATION|afficher_qui_edite{communication}|non)
+		[(#URL_ECRIRE{communication_edit,id_communication=#ID_COMMUNICATION}|icone_verticale{<:communication:icone_modifier_communication:>,communication,edit,right ajax preload})]
+	]
+	[(#ID_COMMUNICATION|afficher_qui_edite{communication}|oui)
+		[(#URL_ECRIRE{communication_edit,id_communication=#ID_COMMUNICATION}|icone_verticale{#ID_COMMUNICATION|afficher_qui_edite{communication},warning-24,'',right edition_deja ajax preload})]
+	]
+]
+
+#PIPELINE{afficher_complement_objet,#ARRAY{args,#ARRAY{type,communication,id,#ID_COMMUNICATION},data,'<div class="nettoyeur"></div>'}}
+
+#BOITE_FERMER
+[(#EVAL{_AJAX}|oui)
+	<script type="text/javascript">/*<!\\[CDATA\\[*/reloadExecPage('#ENV{exec}','#navigation,#chemin,#extra');/*\\]\\]>*/</script>
+]
+</BOUCLE_communication>
+[(#ENV**{exec}|=={communication_edit}|?{#INCLURE{fond=prive/squelettes/contenu/communication_edit,redirect='',env,retourajax=oui},#REM|sinon_interdire_acces})]
+<//B_communication>
