@@ -18,10 +18,13 @@ schema="1.0.0"
   <necessite nom="reservation_evenement" compatibilite="[1.18.0;]" />
 
   <pipeline nom="autoriser" inclure="reservation_communication_autorisations.php" />
+
   <pipeline nom="declarer_tables_objets_sql" inclure="base/reservation_communication.php" />
   <pipeline nom="declarer_tables_auxiliaires" inclure="base/reservation_communication.php" />
   <pipeline nom="declarer_tables_interfaces" inclure="base/reservation_communication.php" />
+
   <pipeline nom="affiche_enfants" inclure="reservation_communication_pipelines.php" />
   <pipeline nom="affiche_auteurs_interventions" inclure="reservation_communication_pipelines.php" />
+
   <menu nom="communications" titre="communication:titre_communications" parent="menu_activite" icone="images/communication-16.png" action="communications" />
 </paquet>
