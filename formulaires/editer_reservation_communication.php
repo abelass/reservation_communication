@@ -66,14 +66,27 @@ function formulaires_editer_reservation_communication_identifier_dist($id_reserv
 function formulaires_editer_reservation_communication_charger_dist($id_reservation_communication = 'new', $id_rubrique = 0, $retour = '', $lier_trad = 0, $config_fonc = '', $row = array(), $hidden = '') {
   $valeurs = formulaires_editer_objet_charger('reservation_communication', $id_reservation_communication, $id_rubrique, $lier_trad, $retour, $config_fonc, $row, $hidden);
 
-  $valeurs['id_rubrique'] = _request('id_rubrique');
-  $valeurs['id_article'] = _request('id_article');
-  $valeurs['id_evenement'] = _request('id_evenement');
+  if($id_rubrique = _request('id_rubrique')) {
+    $valeurs['id_rubrique'] = $id_rubrique;
+    $valeurs['_hidden'] .= '<input type="hidden" name="id_rubrique" value="' . $id_rubrique . '" />';
+    $objet = 'rubrique';
+  }
+
+  if($id_article = _request('id_article')) {
+    $valeurs['id_article'] = $id_article ;
+    $valeurs['_hidden'] .= '<input type="hidden" name="id_article" value="' . $id_article . '" />';
+    $objet = 'article';
+  }
+  if($id_evenement = _request('id_evenement')) {
+    $valeurs['id_evenement'] = $id_evenement;
+    $valeurs['_hidden'] .= '<input type="hidden" name="id_evenement" value="' . $id_evenement . '" />';
+    $objet = 'evenement';
+  }
+
+  if($id = ${"id_$objet"}) $valeurs['titre'] = sql_getfetsel('titre','spip_' . $objet .'s','id_' .$objet . '=' . $id);
+
   $valeurs['type'] = _request('type');
 
-  $valeurs['_hidden'] .= '<input type="hidden" name="id_rubrique" value="' . $valeurs['id_rubrique'] . '" />';
-  $valeurs['_hidden'] .= '<input type="hidden" name="id_article" value="' . $valeurs['id_article'] . '" />';
-  $valeurs['_hidden'] .= '<input type="hidden" name="id_evenement" value="' . $valeurs['id_evenement'] . '" />';
   $valeurs['_hidden'] .= '<input type="hidden" name="type" value="' . $valeurs['type'] . '" />';
 
   return $valeurs;
