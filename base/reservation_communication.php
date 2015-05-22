@@ -61,6 +61,7 @@ function reservation_communication_declarer_tables_objets_sql($tables) {
       "failed" => "bigint(21) NOT NULL DEFAULT 0",
       "date_envoi" => "datetime NOT NULL DEFAULT '0000-00-00 00:00:00'",
       "statut" => "varchar(20)  DEFAULT '0' NOT NULL",
+      "statut_reservation" => "varchar(20)  DEFAULT '0' NOT NULL",
       "maj" => "TIMESTAMP"
     ),
     'key' => array(
@@ -83,7 +84,8 @@ function reservation_communication_declarer_tables_objets_sql($tables) {
       'email_test',
       'total',
       'current',
-      'failed'
+      'failed',
+      'statut_reservation',
     ),
     'champs_versionnes' => array(),
     'rechercher_champs' => array(),
