@@ -9,7 +9,8 @@
  * @package    SPIP\Reservation_communication\Formulaires
  */
 
-if (!defined('_ECRIRE_INC_VERSION')) return;
+if (!defined('_ECRIRE_INC_VERSION'))
+  return;
 
 include_spip('inc/actions');
 include_spip('inc/editer');
@@ -34,8 +35,8 @@ include_spip('inc/editer');
  * @return string
  *     Hash du formulaire
  */
-function formulaires_editer_reservation_communication_identifier_dist($id_reservation_communication='new', $id_rubrique=0, $retour='', $lier_trad=0, $config_fonc='', $row=array(), $hidden=''){
-	return serialize(array(intval($id_reservation_communication)));
+function formulaires_editer_reservation_communication_identifier_dist($id_reservation_communication = 'new', $id_rubrique = 0, $retour = '', $lier_trad = 0, $config_fonc = '', $row = array(), $hidden = '') {
+  return serialize(array(intval($id_reservation_communication)));
 }
 
 /**
@@ -62,9 +63,20 @@ function formulaires_editer_reservation_communication_identifier_dist($id_reserv
  * @return array
  *     Environnement du formulaire
  */
-function formulaires_editer_reservation_communication_charger_dist($id_reservation_communication='new', $id_rubrique=0, $retour='', $lier_trad=0, $config_fonc='', $row=array(), $hidden=''){
-	$valeurs = formulaires_editer_objet_charger('reservation_communication',$id_reservation_communication,$id_rubrique,$lier_trad,$retour,$config_fonc,$row,$hidden);
-	return $valeurs;
+function formulaires_editer_reservation_communication_charger_dist($id_reservation_communication = 'new', $id_rubrique = 0, $retour = '', $lier_trad = 0, $config_fonc = '', $row = array(), $hidden = '') {
+  $valeurs = formulaires_editer_objet_charger('reservation_communication', $id_reservation_communication, $id_rubrique, $lier_trad, $retour, $config_fonc, $row, $hidden);
+
+  $valeurs['id_rubrique'] = _request('id_rubrique');
+  $valeurs['id_article'] = _request('id_article');
+  $valeurs['id_evenement'] = _request('id_evenement');
+  $valeurs['type'] = _request('type');
+
+  $valeurs['_hidden'] .= '<input type="hidden" name="id_rubrique" value="' . $valeurs['id_rubrique'] . '" />';
+  $valeurs['_hidden'] .= '<input type="hidden" name="id_article" value="' . $valeurs['id_article'] . '" />';
+  $valeurs['_hidden'] .= '<input type="hidden" name="id_evenement" value="' . $valeurs['id_evenement'] . '" />';
+  $valeurs['_hidden'] .= '<input type="hidden" name="type" value="' . $valeurs['type'] . '" />';
+
+  return $valeurs;
 }
 
 /**
@@ -91,9 +103,9 @@ function formulaires_editer_reservation_communication_charger_dist($id_reservati
  * @return array
  *     Tableau des erreurs
  */
-function formulaires_editer_reservation_communication_verifier_dist($id_reservation_communication='new', $id_rubrique=0, $retour='', $lier_trad=0, $config_fonc='', $row=array(), $hidden=''){
+function formulaires_editer_reservation_communication_verifier_dist($id_reservation_communication = 'new', $id_rubrique = 0, $retour = '', $lier_trad = 0, $config_fonc = '', $row = array(), $hidden = '') {
 
-	return formulaires_editer_objet_verifier('reservation_communication',$id_reservation_communication, array('titre'));
+  return formulaires_editer_objet_verifier('reservation_communication', $id_reservation_communication, array('titre'));
 
 }
 
@@ -121,9 +133,7 @@ function formulaires_editer_reservation_communication_verifier_dist($id_reservat
  * @return array
  *     Retours des traitements
  */
-function formulaires_editer_reservation_communication_traiter_dist($id_reservation_communication='new', $id_rubrique=0, $retour='', $lier_trad=0, $config_fonc='', $row=array(), $hidden=''){
-	return formulaires_editer_objet_traiter('reservation_communication',$id_reservation_communication,$id_rubrique,$lier_trad,$retour,$config_fonc,$row,$hidden);
+function formulaires_editer_reservation_communication_traiter_dist($id_reservation_communication = 'new', $id_rubrique = 0, $retour = '', $lier_trad = 0, $config_fonc = '', $row = array(), $hidden = '') {
+  return formulaires_editer_objet_traiter('reservation_communication', $id_reservation_communication, $id_rubrique, $lier_trad, $retour, $config_fonc, $row, $hidden);
 }
-
-
 ?>
