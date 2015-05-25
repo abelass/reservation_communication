@@ -62,6 +62,7 @@ function reservation_communication_declarer_tables_objets_sql($tables) {
       "date_envoi" => "datetime NOT NULL DEFAULT '0000-00-00 00:00:00'",
       "statut" => "varchar(20)  DEFAULT '0' NOT NULL",
       "statut_reservation" => "varchar(20)  DEFAULT '0' NOT NULL",
+      "lang" => "varchar(10)  DEFAULT '' NOT NULL",
       "maj" => "TIMESTAMP"
     ),
     'key' => array(
@@ -70,6 +71,7 @@ function reservation_communication_declarer_tables_objets_sql($tables) {
       "KEY id_evenement" => "id_evenement",
       "KEY id_article" => "id_evenement",
       "KEY statut" => "statut",
+      "KEY lang" => "lang"
     ),
     'titre' => "titre AS titre, '' AS lang",
     'date' => "date_envoi",
@@ -86,21 +88,25 @@ function reservation_communication_declarer_tables_objets_sql($tables) {
       'current',
       'failed',
       'statut_reservation',
+      'lang',
     ),
     'champs_versionnes' => array(),
     'rechercher_champs' => array(),
     'tables_jointures' => array(),
     'statut_textes_instituer' => array(
       'prepa' => 'texte_statut_en_cours_redaction',
-      'prop' => 'texte_statut_propose_evaluation',
-      'publie' => 'texte_statut_publie',
-      'refuse' => 'texte_statut_refuse',
+      'envoye' => 'texte_statut_envoye',
       'poubelle' => 'texte_statut_poubelle',
+    ),
+    'statut_images' => array(
+      'prepa'  => 'puce-prepa.png',
+      'envoye'  => 'puce-publier.png',
+      'poubelle'  => 'puce-poubelle.png',
     ),
     'statut' => array( array(
         'champ' => 'statut',
-        'publie' => 'publie',
-        'previsu' => 'publie,prop,prepa',
+        'publie' => 'envoye',
+        'previsu' => 'envoye,prepa',
         'post_date' => 'date',
         'exception' => array(
           'statut',
