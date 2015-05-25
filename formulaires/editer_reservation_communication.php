@@ -97,6 +97,7 @@ function formulaires_editer_reservation_communication_charger_dist($id_reservati
   $valeurs['_hidden'] .= '<input type="hidden" name="id_article" value="' . $valeurs['id_article'] . '" />';
   $valeurs['_hidden'] .= '<input type="hidden" name="id_evenement" value="' . $valeurs['id_evenement'] . '" />';
   $valeurs['_hidden'] .= '<input type="hidden" name="lang" value="' . $valeurs['lang'] . '" />';
+  $valeurs['_hidden'] .= '<input type="hidden" name="objet" value="' . $objet . '" />';
 
   return $valeurs;
 }
