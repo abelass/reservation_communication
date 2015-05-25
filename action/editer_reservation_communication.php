@@ -29,38 +29,16 @@ function reservation_communication_inserer($id_parent = null, $set = null) {
 
   $lang_rub = "";
   $champs = array();
-  if (isset($desc['field']['id_rubrique'])) {
-    // Si id_rubrique vaut 0 ou n'est pas definie, creer l'objet
-    // dans la premiere rubrique racine
-    if (!$id_rubrique = intval($id_parent)) {
-      $row = sql_fetsel("id_rubrique, id_secteur, lang", "spip_rubriques", "id_parent=0", '', '0+titre,titre', "1");
-      $id_rubrique = $row['id_rubrique'];
-    }
-    else
-      $row = sql_fetsel("lang, id_secteur", "spip_rubriques", "id_rubrique=" . intval($id_rubrique));
 
-    $champs['id_rubrique'] = $id_rubrique;
-    if (isset($desc['field']['id_secteur']))
-      $champs['id_secteur'] = $row['id_secteur'];
-    $lang_rub = $row['lang'];
-  }
+  $id_rubrique = $id_parent;
 
-  // La langue a la creation : si les liens de traduction sont autorises
-  // dans les rubriques, on essaie avec la langue de l'auteur,
-  // ou a defaut celle de la rubrique
-  // Sinon c'est la langue de la rubrique qui est choisie + heritee
-  if (isset($desc['field']['lang']) AND $GLOBALS['meta']['multi_objets'] AND in_array($table_sql, explode(',', $GLOBALS['meta']['multi_objets']))) {
-    lang_select($GLOBALS['visiteur_session']['lang']);
-    if (in_array($GLOBALS['spip_lang'], explode(',', $GLOBALS['meta']['langues_multilingue']))) {
-      $champs['lang'] = $GLOBALS['spip_lang'];
-      if (isset($desc['field']['langue_choisie']))
-        $champs['langue_choisie'] = 'oui';
-    }
-  }
-  elseif (isset($desc['field']['lang']) AND isset($desc['field']['langue_choisie'])) {
-    $champs['lang'] = ($lang_rub ? $lang_rub : $GLOBALS['meta']['langue_site']);
-    $champs['langue_choisie'] = 'non';
-  }
+  $row = sql_fetsel("lang", "spip_rubriques", "id_rubrique=" . intval($id_rubrique));
+
+  $champs['id_rubrique'] = $id_rubrique;
+  $lang_rub = _request('lang') ? _request('lang') : $row['lang'];
+
+  $champs['lang'] = ($lang_rub ? $lang_rub : $GLOBALS['meta']['langue_site']);
+
 
   if (isset($desc['field']['statut'])) {
     if (isset($desc['statut_textes_instituer'])) {
