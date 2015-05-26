@@ -79,3 +79,22 @@ function reservation_communication_reservation_compteur_action($flux) {
 
   return $flux;
 }
+
+/**
+ * Ajoute du contenu à la fiche de l'objet
+ *
+ * @pipeline afficher_complement_objet
+ * @param  array $flux Données du pipeline
+ * @return array       Données du pipeline
+ */
+function reservation_communication_afficher_complement_objet($flux){
+  if ($flux['args']['type']=='reservation_communication'
+    AND $id_reservation_communication=intval($flux['args']['id'])){
+    #ajouter la liste des envois
+    $contexte = array('id_reservation_communication'=>$id_reservation_communication);
+    if (_request('recherche'))
+      $contexte['recherche'] = _request('recherche');
+    $flux['data'] .= recuperer_fond("prive/squelettes/contenu/inc-reservation_communication-destinataires",$contexte,array('ajax'=>true));
+  }
+  return $flux;
+}
