@@ -20,12 +20,6 @@ if (!defined('_ECRIRE_INC_VERSION'))
  * @return bool|int
  */
 function reservation_communication_inserer($id_parent = null, $set = null) {
-  $table_sql = table_objet_sql('reservation_communication');
-  $trouver_table = charger_fonction('trouver_table', 'base');
-  $desc = $trouver_table($table_sql);
-  if (!$desc OR !isset($desc['field']))
-    return 0;
-
   $lang_rub = "";
   $champs = array();
 
@@ -37,34 +31,24 @@ function reservation_communication_inserer($id_parent = null, $set = null) {
   $lang_rub = _request('lang') ? _request('lang') : $row['lang'];
 
   $champs['lang'] = ($lang_rub ? $lang_rub : $GLOBALS['meta']['langue_site']);
-
-  if (isset($desc['field']['statut'])) {
-    if (isset($desc['statut_textes_instituer'])) {
-      $cles_statut = array_keys($desc['statut_textes_instituer']);
-      $champs['statut'] = reset($cles_statut);
-    }
-    else
-      $champs['statut'] = 'prepa';
-  }
-
-  if ((isset($desc['date']) AND $d = $desc['date']) OR isset($desc['field'][$d = 'date']))
-    $champs[$d] = date('Y-m-d H:i:s');
+  $champs['statut'] = 'prepa';
+  $champs['date_redac'] = date('Y-m-d H:i:s');
 
   if ($set)
     $champs = array_merge($champs, $set);
 
   // Envoyer aux plugins
   $champs = pipeline('pre_insertion', array(
-    'args' => array('table' => $table_sql, ),
+    'args' => array('table' => 'spip_reservation_communications', ),
     'data' => $champs
   ));
 
-  $id = sql_insertq($table_sql, $champs);
+  $id = sql_insertq('spip_reservation_communications', $champs);
 
   if ($id) {
     pipeline('post_insertion', array(
       'args' => array(
-        'table' => $table_sql,
+        'table' => 'spip_reservation_communications',
         'id_objet' => $id,
       ),
       'data' => $champs
@@ -73,31 +57,59 @@ function reservation_communication_inserer($id_parent = null, $set = null) {
   }
 
   //Attacher les déstinataires
-  $objet = _request('objet');
-  $id = ${"id_$objet"};
-  
-  switch ($objet){
-    
-    case  'evenement' :
-      $data = sql_select('*', 'spip_reservation_details AS rd
-        LEFT JOIN spip_auteurs AS a ON rd.id_auteur = a.id_auteur', 'rd.id_evenement=' . $id);
-      break;
-    
-    case 'article' :
-      $data = sql_select('*', 'spip_evenements AS e
-        LEFT JOIN spip_reservation_details AS rd ON e.id_evenement = rd.id_evenement 
-        LEFT JOIN spip_auteurs AS a ON rd.id_auteur = a.id_auteur', 'e.id_article=' . $id);
-      
-      break;
-      
-    case 'rubrique' :
-       $data = sql_select('*', 'spip_articles AS a
-        LEFT JOIN spip_evenements AS e ON a.id_article = e.id_article,
-        LEFT JOIN spip_reservation_details AS rd ON e.id_evenement = rd.id_evenement 
-        LEFT JOIN spip_auteurs AS a ON spip_rd.id_auteur = a.id_auteur', 'a.id_rubrique=' . $id);
-      
-      break;
-  }
-  
+  if ($objet = _request('objet')) {
+    $id_objet = _request('id');
+    $select = array(
+      'aut.email AS email_auteur',
+      'res.email AS email',
+      'res.id_auteur'
+    );
+
+    switch ($objet) {
+
+      case  'evenement' :
+        $from = 'spip_reservations_details AS rd
+          LEFT JOIN spip_reservations AS res ON rd.id_reservation = res.id_reservation
+          LEFT JOIN spip_auteurs AS aut ON res.id_auteur = aut.id_auteur';
+        $where = 'rd.id_evenement=' . $id_objet;
+        break;
+
+      case 'article' :
+        $from = 'spip_evenements AS e
+          LEFT JOIN spip_reservations_details AS rd ON e.id_evenement = rd.id_evenement
+          LEFT JOIN spip_reservations AS res ON rd.id_reservation = res.id_reservation
+          LEFT JOIN spip_auteurs AS aut ON res.id_auteur = aut.id_auteur';
+        $where = 'e.id_article=' . $id_objet;
+
+        break;
+
+      case 'rubrique' :
+        $from = 'spip_articles AS a
+          LEFT JOIN spip_evenements AS e ON a.id_article = e.id_article
+          LEFT JOIN spip_reservations_details AS rd ON e.id_evenement = rd.id_evenement
+          LEFT JOIN spip_reservations AS res ON rd.id_reservation = res.id_reservation
+          LEFT JOIN spip_auteurs AS aut ON res.id_auteur = aut.id_auteur';
+        $where = 'a.id_rubrique=' . $id_objet;
+
+        break;
+    }
+
+    $date = date('Y-m-d H:i:s');
+
+    $sql = sql_select($select, $from, $where);
+
+    while ($data = sql_fetch($sql)) {
+      $email = isset($data['email_auteur']) ? $data['email_auteur'] : $data['email'];
+      $id_auteur = isset($data['id_auteur']) ? $data['id_auteur'] : '';
+
+      sql_insertq('spip_reservation_communication_destinataires', array(
+        'id_reservation_communication' => $id,
+        'email' => $email,
+        'id_auteur' => $id_auteur,
+
+      ));
+    }
+  };
+
   return $id;
 }

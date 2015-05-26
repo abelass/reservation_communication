@@ -61,8 +61,9 @@ function reservation_communication_declarer_tables_objets_sql($tables) {
       "failed" => "bigint(21) NOT NULL DEFAULT 0",
       "date_envoi" => "datetime NOT NULL DEFAULT '0000-00-00 00:00:00'",
       "statut" => "varchar(20)  DEFAULT '0' NOT NULL",
-      "statut_reservation" => "varchar(20)  DEFAULT '0' NOT NULL",
+      "statut_reservation" => "varchar(255)  DEFAULT '0' NOT NULL",
       "lang" => "varchar(10)  DEFAULT '' NOT NULL",
+      "langue_choisie" => "varchar(10)  DEFAULT '' NOT NULL",
       "maj" => "TIMESTAMP"
     ),
     'key' => array(
@@ -136,7 +137,7 @@ function reservation_communication_declarer_tables_auxiliaires($tables) {
       "email" => "varchar(255) NOT NULL DEFAULT ''",
       "id_auteur" => "varchar(255) NOT NULL DEFAULT ''",
       "date" => "datetime NOT NULL DEFAULT '0000-00-00 00:00:00'",
-      "statut" => "char(4)  DEFAULT 'todo' NOT NULL", // todo, sent, fail, [read, [clic]],[spam]
+      "statut" => "varchar(4)  DEFAULT 'todo' NOT NULL", // todo, sent, fail, [read, [clic]],[spam]
       "try" => "tinyint NOT NULL DEFAULT 0", // nombre d'essais
     ),
     'key' => array(
