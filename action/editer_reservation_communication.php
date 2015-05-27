@@ -65,9 +65,9 @@ function reservation_communication_inserer($id_parent = null, $set = null) {
       'res.id_auteur'
     );
 
-    $statut_reservation = _request('statut_reservation');
+    $statut_reservation = explode(',', _request('statut_reservation'));
 
-    $where = array('rd.statut IN ("' . $statut_reservation . '")');
+    $where = array('rd.statut IN ("' . implode('","', $statut_reservation) . '")');
 
     switch ($objet) {
 
