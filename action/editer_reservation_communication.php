@@ -64,10 +64,10 @@ function reservation_communication_inserer($id_parent = null, $set = null) {
       'res.email AS email',
       'res.id_auteur'
     );
-    
-	$statut_reservation = _request('statut_reservation');
-    
-    $where = array('rd.statut IN ("' .$statut_reservation. '")');
+
+    $statut_reservation = _request('statut_reservation');
+
+    $where = array('rd.statut IN ("' . $statut_reservation . '")');
 
     switch ($objet) {
 

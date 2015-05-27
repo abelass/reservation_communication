@@ -25,6 +25,7 @@ schema="1.0.0"
 
   <pipeline nom="affiche_enfants" inclure="reservation_communication_pipelines.php" />
   <pipeline nom="affiche_auteurs_interventions" inclure="reservation_communication_pipelines.php" />
+  <pipeline nom="afficher_complement_objet" inclure="reservation_communication_pipelines.php" />  
 
   <pipeline nom="reservation_compteur_action" inclure="reservation_communication_pipelines.php" />
 
