@@ -77,6 +77,8 @@ function reservation_communication_declarer_tables_objets_sql($tables) {
     'titre' => "titre AS titre, '' AS lang",
     'date' => "date_envoi",
     'champs_editables' => array(
+      'id_evenement',
+      'id_article',
       'titre',
       'texte',
       'date_redac',
