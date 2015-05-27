@@ -53,7 +53,6 @@ function reservation_communication_inserer($id_parent = null, $set = null) {
       ),
       'data' => $champs
     ));
-
   }
 
   //Attacher les déstinataires
