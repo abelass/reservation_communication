@@ -64,6 +64,10 @@ function reservation_communication_inserer($id_parent = null, $set = null) {
       'res.email AS email',
       'res.id_auteur'
     );
+    
+	$statut_reservation = _request('statut_reservation');
+    
+    $where = array('rd.statut IN ("' .$statut_reservation. '")');
 
     switch ($objet) {
 
@@ -71,7 +75,7 @@ function reservation_communication_inserer($id_parent = null, $set = null) {
         $from = 'spip_reservations_details AS rd
           LEFT JOIN spip_reservations AS res ON rd.id_reservation = res.id_reservation
           LEFT JOIN spip_auteurs AS aut ON res.id_auteur = aut.id_auteur';
-        $where = 'rd.id_evenement=' . $id_objet;
+        $where[] = 'rd.id_evenement=' . $id_objet;
         break;
 
       case 'article' :
@@ -79,7 +83,7 @@ function reservation_communication_inserer($id_parent = null, $set = null) {
           LEFT JOIN spip_reservations_details AS rd ON e.id_evenement = rd.id_evenement
           LEFT JOIN spip_reservations AS res ON rd.id_reservation = res.id_reservation
           LEFT JOIN spip_auteurs AS aut ON res.id_auteur = aut.id_auteur';
-        $where = 'e.id_article=' . $id_objet;
+        $where[] = 'e.id_article=' . $id_objet;
 
         break;
 
@@ -89,7 +93,7 @@ function reservation_communication_inserer($id_parent = null, $set = null) {
           LEFT JOIN spip_reservations_details AS rd ON e.id_evenement = rd.id_evenement
           LEFT JOIN spip_reservations AS res ON rd.id_reservation = res.id_reservation
           LEFT JOIN spip_auteurs AS aut ON res.id_auteur = aut.id_auteur';
-        $where = 'a.id_rubrique=' . $id_objet;
+        $where[] = 'a.id_rubrique=' . $id_objet;
 
         break;
     }
