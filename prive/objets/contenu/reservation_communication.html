@@ -1,13 +1,14 @@
 <BOUCLE_reservation_communication(RESERVATION_COMMUNICATIONS){id_reservation_communication}{statut?}>
 
-[<div class="champ contenu_id_evenement[ (#ID_EVENEMENT*|strlen|?{'',vide})]">
-	<label><:reservation_communication:champ_id_evenement_label:> : </label>
-	<span dir='#LANG_DIR' class='#EDIT{id_evenement} id_evenement'>(#ID_EVENEMENT)</span>
+[<div class="champ contenu_id_evenement[ (#ID_EVENEMENT|>{0}|?{'',vide})]">
+	<label><:agenda:info_evenement:> : </label>
+	
+	<span dir='#LANG_DIR' class='#EDIT{id_evenement} id_evenement'><a href="#URL_ECRIRE{evenement,id_evenement=#ID_EVENEMENT}">(#INFO_TITRE{evenement,#ID_EVENEMENT})</a></span>
 </div>]
 
-[<div class="champ contenu_id_article[ (#ID_ARTICLE*|strlen|?{'',vide})]">
-	<label><:reservation_communication:champ_id_article_label:> : </label>
-	<span dir='#LANG_DIR' class='#EDIT{id_article} id_article'>(#ID_ARTICLE)</span>
+[<div class="champ contenu_id_article[ (#ID_ARTICLE|>{0}|?{'',vide})]">
+	<label><:ecrire:info_article:> : </label>
+	<span dir='#LANG_DIR' class='#EDIT{id_article} id_article'><a href="#URL_ECRIRE{article,id_article=#ID_ARTICLE}">(#INFO_TITRE{article,#ID_ARTICLE})</a></span>
 </div>]
 
 [<div class="champ contenu_titre[ (#TITRE*|strlen|?{'',vide})]">
@@ -29,7 +30,7 @@
 	<label><:reservation_communication:champ_type_label:> : </label>
 	<span dir='#LANG_DIR' class='#EDIT{type} type'>(#TYPE)</span>
 </div>]
-
+[(#REM) desactivé pour le moment
 [<div class="champ contenu_html_email[ (#HTML_EMAIL*|strlen|?{'',vide})]">
 	<label><:reservation_communication:champ_html_email_label:> : </label>
 	<span dir='#LANG_DIR' class='#EDIT{html_email} html_email'>(#HTML_EMAIL)</span>
@@ -64,5 +65,5 @@
 	<label><:reservation_communication:champ_failed_label:> : </label>
 	<span dir='#LANG_DIR' class='#EDIT{failed} failed'>(#FAILED)</span>
 </div>]
-
+]
 </BOUCLE_reservation_communication>
