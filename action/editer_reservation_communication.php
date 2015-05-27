@@ -106,6 +106,7 @@ function reservation_communication_inserer($id_parent = null, $set = null) {
         'id_reservation_communication' => $id,
         'email' => $email,
         'id_auteur' => $id_auteur,
+        'date' => $date,
       ));
     }
   }
