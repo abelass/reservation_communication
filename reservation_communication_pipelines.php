@@ -98,3 +98,21 @@ function reservation_communication_afficher_complement_objet($flux){
   }
   return $flux;
 }
+
+/**
+ * Définitions des notifications pour https://github.com/abelass/notifications_archive
+ *
+ * @pipeline notifications_archive
+ * @param  array $flux Données du pipeline
+ * @return array       Données du pipeline
+ **/
+function reservation_communication_notifications_archive($flux) {
+  $flux = array_merge($flux, array(
+    'reservation_communication' => array(
+      'activer' => 'on',
+      'duree' => '180'
+    ),
+  ));
+
+  return $flux;
+}
