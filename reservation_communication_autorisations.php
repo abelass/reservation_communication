@@ -51,7 +51,7 @@ function autoriser_configurer_reservation_communication_dist($faire, $type, $id,
 **/
 function autoriser_communications_menu_dist($faire, $type, $id, $qui, $opt){
 	return true;
-} 
+}
 
 
 /**
@@ -65,7 +65,7 @@ function autoriser_communications_menu_dist($faire, $type, $id, $qui, $opt){
  * @return bool          true s'il a le droit, false sinon
 **/
 function autoriser_communication_creer_dist($faire, $type, $id, $qui, $opt) {
-	return (in_array($qui['statut'], array('0minirezo', '1comite')) AND sql_countsel('spip_rubriques')>0); 
+	return (in_array($qui['statut'], array('0minirezo', '1comite')) AND sql_countsel('spip_rubriques')>0);
 }
 
 /**
@@ -124,6 +124,18 @@ function autoriser_rubrique_creercommunicationdans_dist($faire, $type, $id, $qui
 	return ($id AND autoriser('voir','rubrique', $id) AND autoriser('creer','communication', $id));
 }
 
-
+/**
+ * Autorisation d'envoyer une communication
+ *
+ * @param  string $faire Action demandée
+ * @param  string $type  Type d'objet sur lequel appliquer l'action
+ * @param  int    $id    Identifiant de l'objet
+ * @param  array  $qui   Description de l'auteur demandant l'autorisation
+ * @param  array  $opt   Options de cette autorisation
+ * @return bool          true s'il a le droit, false sinon
+**/
+function autoriser_communication_envoyer_dist($faire, $type, $id, $qui, $opt) {
+  return $qui['statut'] == '0minirezo';
+}
 
 ?>
