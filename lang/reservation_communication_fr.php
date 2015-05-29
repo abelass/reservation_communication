@@ -11,7 +11,8 @@ $GLOBALS[$GLOBALS['idx_lang']] = array(
 
   // C
   'champ_current_label' => 'Actuel',
-  'champ_date_redac_label' => 'Date redac',
+  'champ_date_redac_label' => 'Date redaction',
+  'champ_date_envoi_label' => 'Date envoi',
   'champ_email_test_label' => 'Email test',
   'champ_failed_label' => 'Echèc',
   'champ_html_email_label' => 'Html email',

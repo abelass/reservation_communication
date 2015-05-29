@@ -2,12 +2,14 @@
 <BOUCLE_reservation_communication(RESERVATION_COMMUNICATIONS){id_reservation_communication}{statut==.*}{si #ENV{exec}|=={reservation_communication}}>
   [(#BOITE_OUVRIR{[
   [(#AUTORISER{modifier,reservation_communication,#ID_RESERVATION_COMMUNICATION})
-  [(#ID_RESERVATION_COMMUNICATION|afficher_qui_edite{reservation_communication}|non)
-  [(#URL_ECRIRE{reservation_communication_edit,id_reservation_communication=#ID_RESERVATION_COMMUNICATION}|icone_verticale{<:reservation_communication:icone_modifier_reservation_communication:>,reservation_communication,edit,right ajax preload})]
-  ]
-  [(#ID_RESERVATION_COMMUNICATION|afficher_qui_edite{reservation_communication}|oui)
-  [(#URL_ECRIRE{reservation_communication_edit,id_reservation_communication=#ID_RESERVATION_COMMUNICATION}|icone_verticale{#ID_RESERVATION_COMMUNICATION|afficher_qui_edite{reservation_communication},warning-24,'',right edition_deja ajax preload})]
-  ]
+    [(#STATUT|=={prepa}|oui)
+      [(#ID_RESERVATION_COMMUNICATION|afficher_qui_edite{reservation_communication}|non)
+      [(#URL_ECRIRE{reservation_communication_edit,id_reservation_communication=#ID_RESERVATION_COMMUNICATION}|icone_verticale{<:reservation_communication:icone_modifier_reservation_communication:>,reservation_communication,edit,right ajax preload})]
+      ]
+      [(#ID_RESERVATION_COMMUNICATION|afficher_qui_edite{reservation_communication}|oui)
+      [(#URL_ECRIRE{reservation_communication_edit,id_reservation_communication=#ID_RESERVATION_COMMUNICATION}|icone_verticale{#ID_RESERVATION_COMMUNICATION|afficher_qui_edite{reservation_communication},warning-24,'',right edition_deja ajax preload})]
+      ]
+    ]
   ]
 
   <h1>[(#RANG). ](#TITRE|sinon{<:info_sans_titre:>})[(#CHEMIN_IMAGE{reservation_communication-24.png}|balise_img{reservation_communication,cadre-icone})]</h1>
@@ -31,7 +33,9 @@
       [(#AUTORISER{reservation_communication_envoyer,reservation_communication,#ID_RESERVATION_COMMUNICATION})
       [(#BOUTON_ACTION{<:reservation_communication:label_envoyer:>,#URL_ACTION_AUTEUR{reservation_communication_envoyer,#GET{args},#SELF}, ajax})]
       ]
-      [(#BOUTON_ACTION{<:reservation_communication:label_supprimer:>,#URL_ACTION_AUTEUR{instituer_objet,reservation_communication-#ID_RESERVATION_COMMUNICATION-poubelle,#SELF}, ajax})]
+      [(#AUTORISER{reservation_communication_envoyer,reservation_communication,#ID_RESERVATION_COMMUNICATION})
+        [(#BOUTON_ACTION{<:reservation_communication:label_supprimer:>,#URL_ACTION_AUTEUR{instituer_objet,reservation_communication-#ID_RESERVATION_COMMUNICATION-poubelle,#SELF}, ajax})]
+      ]
 
     </div>
   ]
@@ -45,12 +49,14 @@
   <div class="nettoyeur"></div>
 
   [(#AUTORISER{modifier,reservation_communication,#ID_RESERVATION_COMMUNICATION})
-  [(#ID_RESERVATION_COMMUNICATION|afficher_qui_edite{reservation_communication}|non)
-  [(#URL_ECRIRE{reservation_communication_edit,id_reservation_communication=#ID_RESERVATION_COMMUNICATION}|icone_verticale{<:reservation_communication:icone_modifier_reservation_communication:>,reservation_communication,edit,right ajax preload})]
-  ]
-  [(#ID_RESERVATION_COMMUNICATION|afficher_qui_edite{reservation_communication}|oui)
-  [(#URL_ECRIRE{reservation_communication_edit,id_reservation_communication=#ID_RESERVATION_COMMUNICATION}|icone_verticale{#ID_RESERVATION_COMMUNICATION|afficher_qui_edite{reservation_communication},warning-24,'',right edition_deja ajax preload})]
-  ]
+    [(#STATUT|=={prepa}|oui)
+      [(#ID_RESERVATION_COMMUNICATION|afficher_qui_edite{reservation_communication}|non)
+      [(#URL_ECRIRE{reservation_communication_edit,id_reservation_communication=#ID_RESERVATION_COMMUNICATION}|icone_verticale{<:reservation_communication:icone_modifier_reservation_communication:>,reservation_communication,edit,right ajax preload})]
+      ]
+      [(#ID_RESERVATION_COMMUNICATION|afficher_qui_edite{reservation_communication}|oui)
+      [(#URL_ECRIRE{reservation_communication_edit,id_reservation_communication=#ID_RESERVATION_COMMUNICATION}|icone_verticale{#ID_RESERVATION_COMMUNICATION|afficher_qui_edite{reservation_communication},warning-24,'',right edition_deja ajax preload})]
+      ]
+    ]
   ]
 
   #PIPELINE{afficher_complement_objet,#ARRAY{args,#ARRAY{type,reservation_communication,id,#ID_RESERVATION_COMMUNICATION},data,'<div class="nettoyeur"></div>'}}
