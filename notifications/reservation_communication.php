@@ -61,7 +61,6 @@ function notifications_reservation_communication_dist($quoi, $id_reservation_com
   }
 
 
-
   //
   // Envoyer les emails
   //
