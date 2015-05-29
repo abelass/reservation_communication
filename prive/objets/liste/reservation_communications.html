@@ -33,7 +33,7 @@
             <td class='picto'>[(#CHEMIN_IMAGE{reservation_communication-16.png}|balise_img)]</td>
             <td class='statut'>[(#STATUT|puce_statut{reservation_communication,#ID_RESERVATION_COMMUNICATION,#ID_RUBRIQUE})]</td>
 
-            <td class='titre principale'><a href="[(#ID_RESERVATION_COMMUNICATION|generer_url_entite{reservation_communication})]" title="<:info_numero_abbreviation|attribut_html:> #ID_RESERVATION_COMMUNICATION">[(#LOGO_RESERVATION_COMMUNICATION|image_reduire{20,26})]<a href="[(#ID_RESERVATION_COMMUNICATION|generer_url_entite{reservation_communication})]" title="<:info_numero_abbreviation|attribut_html:> #ID_RESERVATION_COMMUNICATION">[(#RANG). ]#TITRE</a></td>
+            <td class='titre principale'><a href="[(#ID_RESERVATION_COMMUNICATION|generer_url_entite{reservation_communication})]" title="<:info_numero_abbreviation|attribut_html:> #ID_RESERVATION_COMMUNICATION">[(#LOGO_RESERVATION_COMMUNICATION|image_reduire{20,26})][(#RANG). ]#TITRE</a></td>
             <td class='type'>#TYPE</td>
             <td class='date primaire'>[(#DATE_REDAC|affdate_jourcourt)]</td>
             <td class='date secondaire'>[(#DATE_ENVOI|affdate_jourcourt)]</td>
