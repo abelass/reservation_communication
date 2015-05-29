@@ -57,4 +57,5 @@ $GLOBALS[$GLOBALS['idx_lang']] = array(
   'titre_reservation_communication' => 'Communication',
   'titre_reservation_communications' => 'Communications',
   'titre_reservation_communications_rubrique' => 'Communications de la rubrique',
+  'texte_statut_envoye' => 'envoyé',
 );
