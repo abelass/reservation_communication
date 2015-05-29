@@ -40,6 +40,7 @@ $GLOBALS[$GLOBALS['idx_lang']] = array(
   // L
   'label_envoyer' => 'Envoyer',
   'label_envoyer_test' => 'Envoi de test à @email@',
+  'label_supprimer' => 'Supprimer',
 
 
   // R
