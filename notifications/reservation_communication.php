@@ -53,17 +53,18 @@ function notifications_reservation_communication_dist($quoi, $id_reservation_com
     $envoi_a = $options['envoi_a'];
   }
   else {
-    $envoi_a = array();
+    $recipients= array();
     $sql = sql_select('email', 'spip_reservation_communication_destinataires', 'id_reservation_communication = ' . $id_reservation_communication);
-    while ($data = sql_fetch($sql)) {
-      $envoyer_mail($data['email'], $subject, $o);
-    }
-  }
-
 
   //
   // Envoyer les emails
   //
+
+    while ($data = sql_fetch($sql)) {
+      $envoyer_mail($data['email'], $subject, $o);
+      $recipients[] = $data['email'];
+    }
+  }
 
 
 
@@ -73,19 +74,33 @@ function notifications_reservation_communication_dist($quoi, $id_reservation_com
     if (!$envoyer_mail)
       $envoi = 'echec';
     if (is_array($envoyer_a)) {
-      $envoi_a = implode(',', $envoi_a);
-    }
-    $o = array(
-      'recipients' => $envoi_a,
-      'sujet' => $subject,
-      'texte' => $message,
-      'html' => 'oui',
-      'id_objet' => $id_reservation_communication,
-      'objet' => 'reservation_communication',
-      'envoi' => $envoi,
-      'type' => $quoi
-    );
-
+      foreach ($envoyer_a as $recipient){
+        $o = array(
+          'recipients' => $recipient,
+          'sujet' => $subject,
+          'texte' => $message,
+          'html' => 'oui',
+          'id_objet' => $id_reservation_communication,
+          'objet' => 'reservation_communication',
+          'envoi' => $envoi,
+          'type' => $quoi
+        );
     $archiver($o);
+      }
+    }
+    else{
+      $o = array(
+        'recipients' => $envoi_a,
+        'sujet' => $subject,
+        'texte' => $message,
+        'html' => 'oui',
+        'id_objet' => $id_reservation_communication,
+        'objet' => 'reservation_communication',
+        'envoi' => $envoi,
+        'type' => $quoi
+      );
+    $archiver($o);
+    }
+
   }
 }
