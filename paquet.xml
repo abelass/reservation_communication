@@ -22,7 +22,7 @@ schema="1.0.0"
   <pipeline nom="declarer_tables_interfaces" inclure="base/reservation_communication.php" />
   <pipeline nom="affiche_enfants" inclure="reservation_communication_pipelines.php" />
   <pipeline nom="affiche_auteurs_interventions" inclure="reservation_communication_pipelines.php" />
-  <pipeline nom="afficher_complement_objet" inclure="reservation_communication_pipelines.php" />
+  <pipeline nom="reservation_compteur_action" inclure="reservation_communication_pipelines.php" />
   <pipeline nom="afficher_complement_objet" inclure="reservation_communication_pipelines.php" />
   <pipeline nom="notifications_archive" inclure="reservation_communication_pipelines.php" />
   <menu nom="reservation_communications" titre="reservation_communication:titre_reservation_communications" parent="menu_activite" icone="images/reservation_communication-16.png" action="reservation_communications" />
