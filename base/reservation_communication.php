@@ -102,9 +102,9 @@ function reservation_communication_declarer_tables_objets_sql($tables) {
       'poubelle' => 'texte_statut_poubelle',
     ),
     'statut_images' => array(
-      'prepa'  => 'puce-prepa.png',
-      'envoye'  => 'puce-publier.png',
-      'poubelle'  => 'puce-poubelle.png',
+      'prepa'  => 'puce-preparer-8.png',
+      'envoye'  => 'puce-publier-8.png',
+      'poubelle'  => 'puce-supprimer-8.png',
     ),
     'statut' => array( array(
         'champ' => 'statut',

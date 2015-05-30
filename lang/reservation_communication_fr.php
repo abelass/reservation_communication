@@ -11,7 +11,8 @@ $GLOBALS[$GLOBALS['idx_lang']] = array(
 
   // C
   'champ_current_label' => 'Actuel',
-  'champ_date_redac_label' => 'Date redac',
+  'champ_date_redac_label' => 'Date redaction',
+  'champ_date_envoi_label' => 'Date envoi',
   'champ_email_test_label' => 'Email test',
   'champ_failed_label' => 'Echèc',
   'champ_html_email_label' => 'Html email',
@@ -31,11 +32,16 @@ $GLOBALS[$GLOBALS['idx_lang']] = array(
   'icone_creer_reservation_communication' => 'Créer une communication',
   'icone_modifier_reservation_communication' => 'Modifier cette communication',
   'info_1_reservation_communication' => 'Une communication',
-  'info_1_reservation_communication_destinataire' => 'Un destinataire',  
+  'info_1_reservation_communication_destinataire' => 'Un destinataire',
   'info_aucun_reservation_communication' => 'Aucune communication',
   'info_nb_reservation_communications' => '@nb@ communications',
-  'info_nb_reservation_communications_destinataires' => '@nb@ destinataires',  
+  'info_nb_reservation_communications_destinataires' => '@nb@ destinataires',
   'info_reservation_communications_auteur' => 'Les communications de cet auteur',
+
+  // L
+  'label_envoyer' => 'Envoyer',
+  'label_envoyer_test' => 'Envoi de test à @email@',
+  'label_supprimer' => 'Supprimer',
 
 
   // R
@@ -46,11 +52,12 @@ $GLOBALS[$GLOBALS['idx_lang']] = array(
   'texte_ajouter_reservation_communication' => 'Ajouter une communication',
   'texte_changer_statut_reservation_communication' => 'Cette communication est :',
   'texte_creer_associer_reservation_communication' => 'Créer et associer une communication',
-  'titre_envois_destinataires' => 'Les destinataires',  
+  'titre_envois_destinataires' => 'Les destinataires',
   'texte_definir_comme_traduction_reservation_communication' => 'Cette communication est une traduction de la communication numéro :',
   'titre_langue_reservation_communication' => 'Langue de cette communication',
   'titre_logo_reservation_communication' => 'Logo de cette communication',
   'titre_reservation_communication' => 'Communication',
   'titre_reservation_communications' => 'Communications',
   'titre_reservation_communications_rubrique' => 'Communications de la rubrique',
+  'texte_statut_envoye' => 'envoyé',
 );

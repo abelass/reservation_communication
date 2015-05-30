@@ -12,11 +12,6 @@
 if (!defined('_ECRIRE_INC_VERSION'))
   return;
 
-/*
- * Un fichier de pipelines permet de regrouper
- * les fonctions de branchement de votre plugin
- * sur des pipelines existants.
- */
 
 /**
  * Ajouter les objets sur les vues de rubriques
@@ -96,5 +91,23 @@ function reservation_communication_afficher_complement_objet($flux){
       $contexte['recherche'] = _request('recherche');
     $flux['data'] .= recuperer_fond("prive/squelettes/contenu/inc-reservation_communication-destinataires",$contexte,array('ajax'=>true));
   }
+  return $flux;
+}
+
+/**
+ * Définitions des notifications pour https://github.com/abelass/notifications_archive
+ *
+ * @pipeline notifications_archive
+ * @param  array $flux Données du pipeline
+ * @return array       Données du pipeline
+ **/
+function reservation_communication_notifications_archive($flux) {
+  $flux = array_merge($flux, array(
+    'reservation_communication' => array(
+      'activer' => 'on',
+      'duree' => '180'
+    ),
+  ));
+
   return $flux;
 }
