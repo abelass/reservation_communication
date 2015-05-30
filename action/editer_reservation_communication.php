@@ -1,13 +1,13 @@
 <?php
 
 /**
- * Fichier gérant l'installation et désinstallation du plugin Réservation Comunications
+ * Fichier gérant les actions relative àm l'édition de l'objet reservation_communication
  *
  * @plugin     Réservation Comunications
  * @copyright  2015
  * @author     Rainer
  * @licence    GNU/GPL
- * @package    SPIP\Reservation_communication\Installation
+ * @package    SPIP\Reservation_communication\Action
  */
 
 if (!defined('_ECRIRE_INC_VERSION'))
