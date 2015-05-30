@@ -49,11 +49,11 @@ function notifications_reservation_communication_dist($quoi, $id_reservation_com
     );
   }
 
-  if (isset($options['envoi_a'])) {
-    $envoi_a = $options['envoi_a'];
+  if (isset($options['recipients'])) {
+    $recipients = $options['recipients'];
   }
   else {
-    $envoi_a = array();
+    $recipients = array();
     $sql = sql_select('email', 'spip_reservation_communication_destinataires', 'id_reservation_communication = ' . $id_reservation_communication);
     while ($data = sql_fetch($sql)) {
       $envoyer_mail($data['email'], $subject, $o);
@@ -73,10 +73,10 @@ function notifications_reservation_communication_dist($quoi, $id_reservation_com
     if (!$envoyer_mail)
       $envoi = 'echec';
     if (is_array($envoyer_a)) {
-      $envoi_a = implode(',', $envoi_a);
+      $recipients = implode(',', $recipients);
     }
     $o = array(
-      'recipients' => $envoi_a,
+      'recipients' => $recipients,
       'sujet' => $subject,
       'texte' => $message,
       'html' => 'oui',
