@@ -67,6 +67,7 @@ function reservation_communication_inserer($id_parent = null, $set = null) {
     $statut_reservation = str_replace(',', '","', _request('statut_reservation'));
 
     $where = array('rd.statut IN ("' . $statut_reservation . '")');
+    $group_by = 'aut.email, res.email';
 
     switch ($objet) {
 
@@ -99,7 +100,7 @@ function reservation_communication_inserer($id_parent = null, $set = null) {
 
     $date = date('Y-m-d H:i:s');
 
-    $sql = sql_select($select, $from, $where);
+    $sql = sql_select($select, $from, $where,$group_by);
     $emails = array();
     
     while ($data = sql_fetch($sql)) {
