@@ -100,14 +100,14 @@ function reservation_communication_inserer($id_parent = null, $set = null) {
 
     $date = date('Y-m-d H:i:s');
 
-    $sql = sql_select($select, $from, $where,$group_by);
+    $sql = sql_select($select, $from, $where, $group_by);
     $emails = array();
-    
+
     while ($data = sql_fetch($sql)) {
       $email = isset($data['email_auteur']) ? $data['email_auteur'] : $data['email'];
       $id_auteur = isset($data['id_auteur']) ? $data['id_auteur'] : '';
-      
-      if($email and !in_array($email, $emails)) {
+
+      if ($email and !in_array($email, $emails)) {
         sql_insertq('spip_reservation_communication_destinataires', array(
           'id_reservation_communication' => $id,
           'email' => $email,
