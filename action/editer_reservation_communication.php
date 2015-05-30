@@ -72,26 +72,26 @@ function reservation_communication_inserer($id_parent = null, $set = null) {
 
       case  'evenement' :
         $from = 'spip_reservations_details AS rd
-          LEFT JOIN spip_reservations AS res ON rd.id_reservation = res.id_reservation
-          LEFT JOIN spip_auteurs AS aut ON res.id_auteur = aut.id_auteur';
+          LEFT JOIN spip_reservations USING (id_reservation)
+          LEFT JOIN spip_auteurs USING (id_auteur)';
         $where[] = 'rd.id_evenement=' . $id_objet;
         break;
 
       case 'article' :
         $from = 'spip_evenements AS e
-          LEFT JOIN spip_reservations_details AS rd ON e.id_evenement = rd.id_evenement
-          LEFT JOIN spip_reservations AS res ON rd.id_reservation = res.id_reservation
-          LEFT JOIN spip_auteurs AS aut ON res.id_auteur = aut.id_auteur';
+          LEFT JOIN spip_reservations_details USING (id_evenement)
+          LEFT JOIN spip_reservations USING (id_reservation)
+          LEFT JOIN spip_auteurs USING (id_auteur)';
         $where[] = 'e.id_article=' . $id_objet;
 
         break;
 
       case 'rubrique' :
         $from = 'spip_articles AS a
-          LEFT JOIN spip_evenements AS e ON a.id_article = e.id_article
-          LEFT JOIN spip_reservations_details AS rd ON e.id_evenement = rd.id_evenement
-          LEFT JOIN spip_reservations AS res ON rd.id_reservation = res.id_reservation
-          LEFT JOIN spip_auteurs AS aut ON res.id_auteur = aut.id_auteur';
+          LEFT JOIN spip_evenementsUSING (id_article)
+          LEFT JOIN spip_reservations_details USING (id_evenement)
+          LEFT JOIN spip_reservations USING (id_reservation)
+          LEFT JOIN spip_auteurs USING (id_auteur)';
         $where[] = 'a.id_rubrique=' . $id_objet;
 
         break;
