@@ -43,9 +43,13 @@ function action_reservation_communication_envoyer_dist() {
 
     $notifications('reservation_communication',$id_reservation_communication, $options);
 
-    // Changer de statut
-    include_spip('action/editer_objet');
-    objet_instituer('reservation_communication', $id_reservation_communication, array('statut' => 'envoye'));
+    // Si il ne s'agit pas de teste
+    if (!$recipients) {
+      // Changer de statut
+      include_spip('action/editer_objet');
+      objet_instituer('reservation_communication', $id_reservation_communication, array('statut' => 'envoye'));
+    }
+
 
   }
 
