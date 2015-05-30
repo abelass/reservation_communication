@@ -1,5 +1,4 @@
 [(#SET{defaut_tri,#ARRAY{
-  id_reservation_communication,-1,
   email,1,
   date,-1,
   points,-1
@@ -15,7 +14,7 @@
       ]
       <thead>
         <tr class='first_row'>
-          <th class='id_reservation_communication' scope='col'>[(#TRI{id_reservation_communication,<:info_numero_abbreviation:>,ajax})]</th>
+
           <th class='email' scope='col'>[(#TRI{email,<:email:>,ajax})]</th>
           <th class='date' scope='col'>[(#TRI{date,<:date:>,ajax})]</th>
           [(#REM) desactivé enn attendant de gérer les statuts d'envoi<th class='statut' scope='col'>[(#TRI{statut,<span title="<:lien_trier_statut|attribut_html:>">#</span>,ajax})]</th>]
@@ -24,7 +23,7 @@
       <tbody>
         <BOUCLE_reservation_communication_dest(reservation_communication_destinataires){id_reservation_communication?}{email?}{where?}{statut?}{email LIKE #GET{recherche}}{tri #ENV{par,email},#GET{defaut_tri}}{pagination #ENV{nb,10}}>
           <tr class='[(#COMPTEUR_BOUCLE|alterner{row_odd,row_even})]'>
-            <td class='id_reservation_communication'><a href="[(#ID_RESERVATION_COMMUNICATION|generer_url_entite{reservation_communication})]">#ID_RESERVATION_COMMUNICATION</a></td>
+
             <td class='email'>#EMAIL</td>
             <td class='date secondaire'>[(#DATE|affdate_heure)]</td>
             [(#REM) desactivé enn attendant de gérer les statuts d'envoi<td class='statut'>[(#VAL{reservation_communication:info_statut_destinataire_}|concat{#STATUT}|_T)]</td>]
