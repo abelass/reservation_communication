@@ -79,7 +79,7 @@ function reservation_communication_inserer($id_parent = null, $set = null) {
 
       case 'article' :
         $from = 'spip_evenements AS e
-          LEFT JOIN spip_reservations_details USING (id_evenement)
+          LEFT JOIN spip_reservations_details AS rd USING (id_evenement)
           LEFT JOIN spip_reservations AS res USING (id_reservation)
           LEFT JOIN spip_auteurs AS aut USING (id_auteur)';
         $where[] = 'e.id_article=' . $id_objet;
@@ -88,8 +88,8 @@ function reservation_communication_inserer($id_parent = null, $set = null) {
 
       case 'rubrique' :
         $from = 'spip_articles AS a
-          LEFT JOIN spip_evenementsUSING (id_article)
-          LEFT JOIN spip_reservations_details USING (id_evenement)
+          LEFT JOIN spip_evenements USING (id_article)
+          LEFT JOIN spip_reservations_details AS rd USING (id_evenement)
           LEFT JOIN spip_reservations AS res USING (id_reservation)
           LEFT JOIN spip_auteurs AS aut USING (id_auteur)';
         $where[] = 'a.id_rubrique=' . $id_objet;
@@ -100,17 +100,21 @@ function reservation_communication_inserer($id_parent = null, $set = null) {
     $date = date('Y-m-d H:i:s');
 
     $sql = sql_select($select, $from, $where);
-
+    $emails = array();
+    
     while ($data = sql_fetch($sql)) {
       $email = isset($data['email_auteur']) ? $data['email_auteur'] : $data['email'];
       $id_auteur = isset($data['id_auteur']) ? $data['id_auteur'] : '';
-
-      sql_insertq('spip_reservation_communication_destinataires', array(
-        'id_reservation_communication' => $id,
-        'email' => $email,
-        'id_auteur' => $id_auteur,
-        'date' => $date,
-      ));
+      
+      if($email and !in_array($email, $emails)) {
+        sql_insertq('spip_reservation_communication_destinataires', array(
+          'id_reservation_communication' => $id,
+          'email' => $email,
+          'id_auteur' => $id_auteur,
+          'date' => $date,
+        ));
+      }
+      $emails[] = $email;
     }
   }
 
