@@ -51,30 +51,23 @@ function notifications_reservation_communication_dist($quoi, $id_reservation_com
 
   if (isset($options['recipients'])) {
     $recipients = $options['recipients'];
-  }
-  else {
+  } else {
     $recipients = array();
     $sql = sql_select('email', 'spip_reservation_communication_destinataires', 'id_reservation_communication = ' . $id_reservation_communication);
+    $recipients = array();
+    // Envoyer les emails
     while ($data = sql_fetch($sql)) {
       $envoyer_mail($data['email'], $subject, $o);
+      $recipients[] = $data['email'];
     }
   }
-
-
-  //
-  // Envoyer les emails
-  //
-
-
 
   // Si présent -  l'api de notifications_archive
   if ($archiver = charger_fonction('archiver_notification', 'inc', true)) {
     $envoi = 'reussi';
     if (!$envoyer_mail)
       $envoi = 'echec';
-    if (is_array($envoyer_a)) {
-      $recipients = implode(',', $recipients);
-    }
+    
     $o = array(
       'recipients' => $recipients,
       'sujet' => $subject,
@@ -85,7 +78,14 @@ function notifications_reservation_communication_dist($quoi, $id_reservation_com
       'envoi' => $envoi,
       'type' => $quoi
     );
-
-    $archiver($o);
+    
+    if (is_array($recipients)) {
+      foreach($recipients as $recipient) {
+        $o['recipients'] = $recipient;
+        $archiver($o);
+      }
+    }
+    else 
+      $archiver($o);
   }
 }
