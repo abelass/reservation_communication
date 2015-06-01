@@ -23,15 +23,13 @@ function notifications_reservation_communication_dist($quoi, $id_reservation_com
   $config = $options['config'];
   $envoyer_mail = charger_fonction('envoyer_mail', 'inc');
 
-  $communication = sql_fetsel('titre,texte', 'spip_reservation_communications', 'id_reservation_communication = ' . $id_reservation_communication);
-
-  $subject = $communication['titre'];
-  $message = recuperer_fond('notifications/contenu_reservation_communication', array('texte' => $communication['texte']));
+  $subject = sql_getfetsel('titre', 'spip_reservation_communications', 'id_reservation_communication = ' . $id_reservation_communication);
+  $message = recuperer_fond('notifications/contenu_reservation_communication', array('id_reservation_communication' => $id_reservation_communication));
 
   // attacher les documents de la communication
   $sql = sql_select('*', 'spip_documents AS d LEFT JOIN spip_documents_liens AS dl USING (id_document)
         LEFT JOIN spip_types_documents USING(extension)', 'dl.id_objet = ' . $id_reservation_communication . '
-        AND dl.objet="reservation_communication" AND d.extension NOT IN ("jpg,png,gif,tiff")');
+        AND dl.objet="reservation_communication" AND dl.vu = "non"');
   $id_document = array();
 
   $o = array('html' => $message);
@@ -49,58 +47,45 @@ function notifications_reservation_communication_dist($quoi, $id_reservation_com
     );
   }
 
-  if (isset($options['envoi_a'])) {
-    $envoi_a = $options['envoi_a'];
+  if (isset($options['recipients'])) {
+    $recipients = $options['recipients'];
+    $envoyer_mail($recipients, $subject, $o);
   }
   else {
-    $recipients= array();
+    $recipients = array();
     $sql = sql_select('email', 'spip_reservation_communication_destinataires', 'id_reservation_communication = ' . $id_reservation_communication);
-
-  //
-  // Envoyer les emails
-  //
-
+    $recipients = array();
+    // Envoyer les emails
     while ($data = sql_fetch($sql)) {
       $envoyer_mail($data['email'], $subject, $o);
       $recipients[] = $data['email'];
     }
   }
 
-
-
   // Si présent -  l'api de notifications_archive
   if ($archiver = charger_fonction('archiver_notification', 'inc', true)) {
     $envoi = 'reussi';
     if (!$envoyer_mail)
       $envoi = 'echec';
-    if (is_array($envoyer_a)) {
-      foreach ($envoyer_a as $recipient){
-        $o = array(
-          'recipients' => $recipient,
-          'sujet' => $subject,
-          'texte' => $message,
-          'html' => 'oui',
-          'id_objet' => $id_reservation_communication,
-          'objet' => 'reservation_communication',
-          'envoi' => $envoi,
-          'type' => $quoi
-        );
-    $archiver($o);
+
+    $o = array(
+      'recipients' => $recipients,
+      'sujet' => $subject,
+      'texte' => $message,
+      'html' => 'oui',
+      'id_objet' => $id_reservation_communication,
+      'objet' => 'reservation_communication',
+      'envoi' => $envoi,
+      'type' => $quoi
+    );
+
+    if (is_array($recipients)) {
+      foreach ($recipients as $recipient) {
+        $o['recipients'] = $recipient;
+        $archiver($o);
       }
     }
-    else{
-      $o = array(
-        'recipients' => $envoi_a,
-        'sujet' => $subject,
-        'texte' => $message,
-        'html' => 'oui',
-        'id_objet' => $id_reservation_communication,
-        'objet' => 'reservation_communication',
-        'envoi' => $envoi,
-        'type' => $quoi
-      );
-    $archiver($o);
-    }
-
+    else
+      $archiver($o);
   }
 }
