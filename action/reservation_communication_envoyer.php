@@ -20,7 +20,7 @@ function action_reservation_communication_envoyer_dist() {
         $arg = $securiser_action();
     }
 
-  list($id_reservation_communication, $type, $lang, $envoi_a) = explode('-', $arg);
+  list($id_reservation_communication, $type, $lang, $recipients) = explode('-', $arg);
 
 
   // Notifications
@@ -31,7 +31,7 @@ function action_reservation_communication_envoyer_dist() {
     $options = array(
       'lang' => $lang,
       'type' => $type,
-      'envoi_a' => $envoi_a,
+      'recipients' => $recipients,
       'config'  => $config
     );
 
@@ -44,8 +44,12 @@ function action_reservation_communication_envoyer_dist() {
     $notifications('reservation_communication',$id_reservation_communication, $options);
 
     // Changer de statut
-    include_spip('action/editer_objet');
-    objet_instituer('reservation_communication', $id_reservation_communication, array('statut' => 'envoye'));
+
+    if(!$recipients){
+      include_spip('action/editer_objet');
+      objet_instituer('reservation_communication', $id_reservation_communication, array('statut' => 'envoye'));
+    }
+
 
   }
 
