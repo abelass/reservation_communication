@@ -1,6 +1,6 @@
 #HTTP_HEADER{Content-Type:text/html}
 #INCLURE{fond=emails/inc-haut}
-<BOUCLE_communication(RESERVATION_COMMUNICATIONS){id_reservation_communication}>
+<BOUCLE_communication(RESERVATION_COMMUNICATIONS){id_reservation_communication}{tout}>
   [<div style="float:left; margin:0 1em 1em 0">(#LOGO_RESERVATION_COMMUNICATION|image_reduire{200})</div>]
   #TEXTE
 </BOUCLE_communication>
