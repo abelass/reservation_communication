@@ -26,6 +26,11 @@
 	<span dir='#LANG_DIR' class='#EDIT{date_redac} date_redac'>(#DATE_REDAC)</span>
 </div>]
 
+[<div class="champ contenu_date_envoi[ (#DATE_ENVOI*|strlen|?{'',vide})]">
+	<label><:reservation_communication:champ_date_envoi_label:> : </label>
+	<span dir='#LANG_DIR' class='#EDIT{date_envoi} date_envoi'>(#DATE_ENVOI)</span>
+</div>]
+
 [<div class="champ contenu_type[ (#TYPE*|strlen|?{'',vide})]">
 	<label><:reservation_communication:champ_type_label:> : </label>
 	<span dir='#LANG_DIR' class='#EDIT{type} type'>(#TYPE)</span>

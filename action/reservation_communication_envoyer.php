@@ -48,4 +48,3 @@ function action_reservation_communication_envoyer_dist() {
     }
   }
 }
-envoye
