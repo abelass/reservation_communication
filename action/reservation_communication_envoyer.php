@@ -6,7 +6,7 @@
  * @copyright  2015
  * @author     Rainer
  * @licence    GNU/GPL
- * @package    SPIP\Reservation_communication\Actions
+ * @package    SPIP\Reservation_communication\Action
  */
 
 function action_reservation_communication_envoyer_dist() {
@@ -24,7 +24,6 @@ function action_reservation_communication_envoyer_dist() {
 
 
   // Notifications
-
   if ($notifications = charger_fonction('notifications', 'inc', true)) {
     lang_select($lang);
 
@@ -40,17 +39,13 @@ function action_reservation_communication_envoyer_dist() {
       $options['expediteur'] = $config['expediteur_' . $config['expediteur']];
 
     // Envoyer
-
     $notifications('reservation_communication',$id_reservation_communication, $options);
 
     // Changer de statut
-
     if(!$recipients){
       include_spip('action/editer_objet');
-      objet_instituer('reservation_communication', $id_reservation_communication, array('statut' => 'envoye'));
+      objet_modifier('reservation_communication', $id_reservation_communication, array('statut' => 'envoye', 'date_envoi' => date('Y-m-d H:i:s')));
     }
-
-
   }
-
 }
+envoye
