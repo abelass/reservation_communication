@@ -7,7 +7,7 @@
  * @copyright  2015
  * @author     Rainer
  * @licence    GNU/GPL
- * @package    SPIP\Reservation_communication\Installation
+ * @package    SPIP\Reservation_communication\Action
  */
 
 if (!defined('_ECRIRE_INC_VERSION'))
