@@ -89,6 +89,7 @@ function reservation_communication_declarer_tables_objets_sql($tables) {
       'email_test',
       'total',
       'current',
+      'date_envoi',
       'failed',
       'statut_reservation',
       'lang',
