@@ -84,10 +84,10 @@ function formulaires_editer_reservation_communication_charger_dist($id_reservati
   }
 
   if ($id) {
-    $data = sql_fetsel('titre,lang','spip_' . $objet .'s','id_' .$objet . '=' . $id);
+    $data = sql_fetsel('*','spip_' . $objet .'s','id_' .$objet . '=' . $id);
 
     $valeurs['titre'] = supprimer_numero($data['titre']);
-    $valeurs['lang'] = $data['lang'];
+    $valeurs['lang'] = isset($data['lang']) ? $data['lang'] : $GLOBALS['meta']['langue_site'];
     $valeurs['id'] = $id;
     $valeurs['_hidden'] .= '<input type="hidden" name="id" value="' .  $valeurs['id'] . '" />';
   }
