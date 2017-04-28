@@ -3,7 +3,7 @@
 	categorie="communication"
 	version="1.0.3"
 	etat="test"
-	compatibilite="[3.0.17;3.1.*]"
+	compatibilite="[3.0.17;3.2.*]"
 	logo="prive/themes/spip/images/reservation_communication-64.png"
 	documentation=""
 	schema="1.0.0"
@@ -13,9 +13,10 @@
 	<!-- cette balise peut etre presente plusieurs fois s'il y a plusieurs auteurs -->
 	<auteur lien='http://websimple.be'>Rainer</auteur>
 	<licence>GNU/GPL</licence>
-	<necessite nom="saisies"  compatibilite="[1.24.0;]" />
-	<necessite nom="reservation_evenement" compatibilite="[1.18.0;]" />
-	<necessite nom="facteur" compatibilite="[3.1.0;]" />
+	<necessite nom="facteur" compatibilite="[3.4.11;]" />
+	<necessite nom="reservation_evenement" compatibilite="[1.25.1;]" />
+	<necessite nom="saisies"  compatibilite="[2.18.12;]" />
+
 	<pipeline nom="autoriser" inclure="reservation_communication_autorisations.php" />
 	<pipeline nom="declarer_tables_objets_sql" inclure="base/reservation_communication.php" />
 	<pipeline nom="declarer_tables_auxiliaires" inclure="base/reservation_communication.php" />
