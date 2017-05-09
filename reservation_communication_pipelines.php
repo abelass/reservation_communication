@@ -111,3 +111,24 @@ function reservation_communication_notifications_archive($flux) {
 
   return $flux;
 }
+
+/**
+ * Ajouter une entré au menu de navigation de résrvation événement.
+ *
+ * @pipeline reservation_evenement_objets_navigation
+ *
+ * @param array $flux
+ *        	Données du pipeline
+ * @return array Données du pipeline
+ */
+
+function reservation_communication_reservation_evenement_objets_navigation($flux) {
+
+	$flux['data']['reservation_communications'] = array(
+			'label' => _T('reservation_communication:titre_reservation_communications'),
+			'objets' => array('reservation_communications', 'reservation_communications')
+	);
+
+	return $flux;
+}
+
