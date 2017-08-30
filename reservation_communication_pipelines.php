@@ -10,7 +10,7 @@
  */
 
 if (!defined('_ECRIRE_INC_VERSION'))
-  return;
+	return;
 
 
 /**
@@ -21,25 +21,25 @@ if (!defined('_ECRIRE_INC_VERSION'))
  * @return array       Données du pipeline
  **/
 function reservation_communication_affiche_enfants($flux) {
-  if ($e = trouver_objet_exec($flux['args']['exec']) AND $e['type'] == 'rubrique' AND $e['edition'] == false) {
+	if ($e = trouver_objet_exec($flux['args']['exec']) AND $e['type'] == 'rubrique' AND $e['edition'] == false) {
 
-    $id_rubrique = $flux['args']['id_rubrique'];
-    $lister_objets = charger_fonction('lister_objets', 'inc');
+		$id_rubrique = $flux['args']['id_rubrique'];
+		$lister_objets = charger_fonction('lister_objets', 'inc');
 
-    $bouton = '';
-    if (autoriser('creerreservation_communicationdans', 'rubrique', $id_rubrique)) {
-      $bouton .= icone_verticale(_T("reservation_communication:icone_creer_reservation_communication"), generer_url_ecrire("reservation_communication_edit", "id_rubrique=$id_rubrique"), "reservation_communication-24.png", "new", "right") . "<br class='nettoyeur' />";
-    }
+		$bouton = '';
+		if (autoriser('creerreservation_communicationdans', 'rubrique', $id_rubrique)) {
+			$bouton .= icone_verticale(_T("reservation_communication:icone_creer_reservation_communication"), generer_url_ecrire("reservation_communication_edit", "id_rubrique=$id_rubrique"), "reservation_communication-24.png", "new", "right") . "<br class='nettoyeur' />";
+		}
 
-    $flux['data'] .= $lister_objets('reservation_communications', array(
-      'titre' => _T('reservation_communication:titre_reservation_communications_rubrique'),
-      'id_rubrique' => $id_rubrique,
-      'par' => 'titre'
-    ));
-    $flux['data'] .= $bouton;
+		$flux['data'] .= $lister_objets('reservation_communications', array(
+			'titre' => _T('reservation_communication:titre_reservation_communications_rubrique'),
+			'id_rubrique' => $id_rubrique,
+			'par' => 'titre'
+		));
+		$flux['data'] .= $bouton;
 
-  }
-  return $flux;
+	}
+	return $flux;
 }
 
 /**
@@ -50,15 +50,15 @@ function reservation_communication_affiche_enfants($flux) {
  * @return array       Données du pipeline
  */
 function reservation_communication_affiche_auteurs_interventions($flux) {
-  if ($id_auteur = intval($flux['args']['id_auteur'])) {
+	if ($id_auteur = intval($flux['args']['id_auteur'])) {
 
-    $flux['data'] .= recuperer_fond('prive/objets/liste/reservation_communications', array(
-      'id_auteur' => $id_auteur,
-      'titre' => _T('reservation_communication:info_reservation_communications_auteur')
-    ), array('ajax' => true));
+		$flux['data'] .= recuperer_fond('prive/objets/liste/reservation_communications', array(
+			'id_auteur' => $id_auteur,
+			'titre' => _T('reservation_communication:info_reservation_communications_auteur')
+		), array('ajax' => true));
 
-  }
-  return $flux;
+	}
+	return $flux;
 }
 
 /**
@@ -70,9 +70,9 @@ function reservation_communication_affiche_auteurs_interventions($flux) {
  */
 function reservation_communication_reservation_compteur_action($flux) {
 
-  $flux['data'] = recuperer_fond('inclure/reservation_compteur_action', $flux);
+	$flux['data'] = recuperer_fond('inclure/reservation_compteur_action', $flux);
 
-  return $flux;
+	return $flux;
 }
 
 /**
@@ -83,15 +83,15 @@ function reservation_communication_reservation_compteur_action($flux) {
  * @return array       Données du pipeline
  */
 function reservation_communication_afficher_complement_objet($flux){
-  if ($flux['args']['type']=='reservation_communication'
-    AND $id_reservation_communication=intval($flux['args']['id'])){
-    #ajouter la liste des envois
-    $contexte = array('id_reservation_communication'=>$id_reservation_communication);
-    if (_request('recherche'))
-      $contexte['recherche'] = _request('recherche');
-    $flux['data'] .= recuperer_fond("prive/squelettes/contenu/inc-reservation_communication-destinataires",$contexte,array('ajax'=>true));
-  }
-  return $flux;
+	if ($flux['args']['type']=='reservation_communication'
+		AND $id_reservation_communication=intval($flux['args']['id'])){
+		#ajouter la liste des envois
+		$contexte = array('id_reservation_communication'=>$id_reservation_communication);
+		if (_request('recherche'))
+			$contexte['recherche'] = _request('recherche');
+		$flux['data'] .= recuperer_fond("prive/squelettes/contenu/inc-reservation_communication-destinataires",$contexte,array('ajax'=>true));
+	}
+	return $flux;
 }
 
 /**
@@ -102,14 +102,14 @@ function reservation_communication_afficher_complement_objet($flux){
  * @return array       Données du pipeline
  **/
 function reservation_communication_notifications_archive($flux) {
-  $flux = array_merge($flux, array(
-    'reservation_communication' => array(
-      'activer' => 'on',
-      'duree' => '180'
-    ),
-  ));
+	$flux = array_merge($flux, array(
+		'reservation_communication' => array(
+			'activer' => 'on',
+			'duree' => '180'
+		),
+	));
 
-  return $flux;
+	return $flux;
 }
 
 /**
@@ -121,7 +121,6 @@ function reservation_communication_notifications_archive($flux) {
  *        	Données du pipeline
  * @return array Données du pipeline
  */
-
 function reservation_communication_reservation_evenement_objets_navigation($flux) {
 
 	$flux['data']['reservation_communications'] = array(
