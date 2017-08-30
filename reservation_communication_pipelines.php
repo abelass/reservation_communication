@@ -130,4 +130,3 @@ function reservation_communication_reservation_evenement_objets_navigation($flux
 
 	return $flux;
 }
-
