@@ -21,7 +21,6 @@ $GLOBALS[$GLOBALS['idx_lang']] = array(
 	'champ_recurrence_label' => 'Recurrence',
 	'champ_texte_email_label' => 'Texte email',
 	'champ_texte_label' => 'Texte',
-	'champ_titre_label' => 'Titre',
 	'champ_total_label' => 'Total',
 	'champ_type_label' => 'Type',
 
