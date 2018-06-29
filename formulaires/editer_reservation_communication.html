@@ -9,7 +9,7 @@
 		<ul>
 
 			[(#SAISIE{input, titre, obligatoire=oui,
-				label=<:forum:label_titre:>})]
+				label=<:reservation_communication:champ_titre_label:>})]
 
 			[<li class="editer editer_rubrique[ (#ENV**{erreurs/id_parent}|oui)erreur]">
 					<label for="id_parent"><:titre_cadre_interieur_rubrique:></label>[
@@ -19,7 +19,7 @@
 			</li>]
 
 			[(#SAISIE{textarea, texte,
-				label=<:ecrire:info_texte:>})]
+				label=<:reservation_communication:champ_texte_label:>})]
 
 		</ul>
 		[(#REM) ajouter les saisies supplementaires : extra et autre, a cet endroit ]
